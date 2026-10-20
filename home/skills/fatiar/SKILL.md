@@ -52,8 +52,10 @@ Achado confirmado volta ao subagente escritor via `SendMessage`, com feedback es
 
 Rode no fim de cada fatia, contra o banco de teste (`NODE_ENV=test`): `pnpm check`, `pnpm typecheck`, `pnpm test`, os testes de integração/e2e relevantes e `git diff --check`. Uma falha bloqueia a próxima fatia.
 
+Fatia que altera tela ou componente também passa pelo navegador: suba a aplicação (agente `executor` ou comando em background), delegue ao agente `verificador-ui` com a URL base, as rotas, os elementos alterados, o comportamento esperado e como autenticar, e confira os screenshots. Falha dele bloqueia a fatia como qualquer gate.
+
 Com os gates verdes, faça um commit convencional em inglês com a fatia (sem incluir arquivos de outras fatias).
 
 ## 6. Relatório final
 
-Tabela curta: fatia, status, gates executados, testes adicionados. Depois liste as suposições, limitações e o que não foi verificado (ex.: UI não aberta no navegador).
+Tabela curta: fatia, status, gates executados, testes adicionados. Depois liste as suposições, limitações e o que não foi verificado (ex.: UI não aberta no navegador, com o motivo).

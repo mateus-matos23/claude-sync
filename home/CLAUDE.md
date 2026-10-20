@@ -53,4 +53,4 @@
 - Valide cada fatia antes de iniciar a próxima; uma falha concreta ou contrato inconsistente bloqueia o avanço até ser resolvido ou classificado.
 - Execute os gates relevantes ao tipo de alteração, amplie somente quando houver risco, falha ou contrato afetado e rode `git diff --check`.
 - Não declare conclusão com falha concreta sem classificação.
-- Pronto = lint, typecheck e testes verdes, mais `git diff --check`. Mudança de UI declara explicitamente se foi verificada no navegador.
+- Pronto = lint, typecheck e testes verdes, mais `git diff --check`. Mudança de UI é verificada no navegador com o agente `verificador-ui`; se não for possível, declare o motivo.

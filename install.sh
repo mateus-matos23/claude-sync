@@ -15,6 +15,7 @@ ITEMS=(
   hooks
   skills/code-style
   skills/fatiar
+  playwright-mcp.json
 )
 
 is_linked() {
