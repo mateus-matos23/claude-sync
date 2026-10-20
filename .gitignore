@@ -1,0 +1,4 @@
+# Nada de estado/segredos do Claude Code deve entrar aqui; só home/ é versionado.
+.credentials.json
+*.local.json
+.env*

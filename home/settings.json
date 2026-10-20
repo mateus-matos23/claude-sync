@@ -1,0 +1,142 @@
+{
+  "cleanupPeriodDays": 365,
+  "env": {
+    "CLAUDE_CODE_SUBAGENT_MODEL": "haiku",
+    "ENABLE_LSP_TOOL": "1",
+    "DISABLE_TELEMETRY": "1",
+    "DISABLE_ERROR_REPORTING": "1",
+    "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1",
+    "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "16000",
+    "MAX_THINKING_TOKENS": "8000",
+    "MAX_MCP_OUTPUT_TOKENS": "25000",
+    "TASK_MAX_OUTPUT_LENGTH": "20000",
+    "SECURITY_REVIEW_MODEL": "claude-sonnet-5-5",
+    "SG_AGENTIC_MODEL": "claude-sonnet-5-5"
+  },
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git branch:*)",
+      "Bash(git show:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(sed: *)",
+      "Bash(awk: *)",
+      "Bash(grep: *)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpx tsc:*)",
+      "Bash(pnpx eslint:*)",
+      "Bash(pnpx prettier:*)",
+      "Bash(pnpx vitest:*)",
+      "Bash(pnpx jest:*)",
+      "Edit",
+      "Write",
+      "Read"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Bash(rm -rf:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)"
+    ],
+    "defaultMode": "auto"
+  },
+  "model": "opus",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.claude/hooks/guard-dependencies.sh",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.claude/hooks/guard-database.sh",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Agent",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.claude/hooks/guard-subagent-model.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.claude/hooks/format-with-biome.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  },
+  "disableWorkflows": true,
+  "enableArtifact": false,
+  "statusLine": {
+    "type": "command",
+    "command": "input=$(cat); model=$(echo \"$input\" | jq -r '.model.display_name // empty'); effort=$(echo \"$input\" | jq -r '.effort.level // empty'); cwd=$(echo \"$input\" | jq -r '.workspace.current_dir // .cwd'); used=$(echo \"$input\" | jq -r '.context_window.used_percentage // empty'); five=$(echo \"$input\" | jq -r '.rate_limits.five_hour.used_percentage // empty'); week=$(echo \"$input\" | jq -r '.rate_limits.seven_day.used_percentage // empty'); branch=$(git -C \"$cwd\" --no-optional-locks symbolic-ref --short HEAD 2>/dev/null); printf '\\033[01;34m%s\\033[00m' \"$(basename \"$cwd\")\"; [ -n \"$branch\" ] && printf ' \\033[01;35m(%s)\\033[00m' \"$branch\"; [ -n \"$used\" ] && printf ' \\033[33mctx:%.0f%%\\033[00m' \"$used\"; [ -n \"$five\" ] && printf ' \\033[36m5h:%.0f%%\\033[00m' \"$five\"; [ -n \"$week\" ] && printf ' \\033[32m7d:%.0f%%\\033[00m' \"$week\"; [ -n \"$model\" ] && printf ' \\033[37m%s\\033[00m' \"$model\"; [ -n \"$effort\" ] && printf ' \\033[37m(%s)\\033[00m' \"$effort\"; printf '\\n'"
+  },
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true,
+    "engineering@knowledge-work-plugins": true,
+    "security-guidance@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "ui-ux-pro-max@ui-ux-pro-max-skill": true
+  },
+  "extraKnownMarketplaces": {
+    "knowledge-work-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/knowledge-work-plugins"
+      }
+    },
+    "ui-ux-pro-max-skill": {
+      "source": {
+        "source": "github",
+        "repo": "nextlevelbuilder/ui-ux-pro-max-skill"
+      }
+    }
+  },
+  "outputStyle": "Concise",
+  "language": "portuguese",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "medium"
+    },
+    "claude-sonnet-5-5": {
+      "effortLevel": "medium"
+    },
+    "claude-haiku-5-5": {
+      "effortLevel": "low"
+    }
+  },
+  "theme": "dark",
+  "verbose": false,
+  "autoContinueAtUsageLimit": true,
+  "autoUpdate": true,
+  "autoCompactThreshold": 80
+}
