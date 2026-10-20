@@ -23,6 +23,7 @@ Fluxo para features maiores: o agente principal planeja, delega uma fatia por ve
 - Um subagente escritor por vez, sempre com `model` explícito: `haiku` por padrão, `sonnet` para fatia complexa. Nunca Opus nem fork.
 - O brief contém: objetivo, arquivos, critério de aceite, comandos de gate, o que não tocar e o **checklist abaixo** copiado na íntegra.
 - Proíba no brief: dependências novas, edição de código gerado, comandos de banco sem `NODE_ENV=test`.
+- Exija no brief uma autochecagem antes de retornar: rodar os gates da fatia, conferir cada item do checklist e devolver a saída final de cada gate (comando, exit code, contagem de testes) e os itens do checklist que não conseguiu confirmar. Entrega sem essa saída volta ao subagente sem revisão.
 
 ## 4. Revisar
 
@@ -33,7 +34,7 @@ Depois de cada entrega de subagente, nesta ordem:
 3. **Segurança**: o plugin `security-guidance` revisa sozinho, com alertas por padrão nas edições, revisão do diff no fim do turno e revisão agêntica no commit. Todo achado dele precisa ser corrigido ou justificado antes de liberar a fatia.
 4. **Checklist**: leia o diff (`git diff`) e confira cada item abaixo.
 
-Achado confirmado volta ao subagente escritor com feedback específico (até 2 iterações; depois corrija ou escale ao usuário).
+Achado confirmado volta ao subagente escritor via `SendMessage`, com feedback específico (até 2 iterações; depois corrija ou escale ao usuário). Se o `SendMessage` falhar, o agente principal aplica direto as correções pequenas e localizadas e registra isso no relatório final; correção grande vai a um novo subagente com o feedback no brief.
 
 ### Checklist de revisão
 
