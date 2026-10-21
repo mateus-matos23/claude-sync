@@ -23,7 +23,8 @@ Fluxo para features maiores: o agente principal planeja, delega uma fatia por ve
 
 ## 3. Delegar (uma fatia por vez)
 
-- Um subagente escritor por vez, sempre com `model` explícito: `haiku` para risco baixo, `sonnet` para risco alto. Nunca Opus nem fork.
+- Fatia de risco baixo que toca até 3 arquivos: o agente principal implementa direto, sem subagente, porque cada subagente começa com contexto e cache frios. Revisão, gates e commit seguem iguais.
+- Um subagente escritor por vez, sempre com `model` explícito: `haiku` para risco baixo, `sonnet` para risco alto. Nunca Opus nem fork. Isso vale para as demais fatias.
 - O brief contém: objetivo, arquivos, critério de aceite, comandos de gate, o que não tocar e o **checklist abaixo** copiado na íntegra.
 - Proíba no brief: dependências novas, edição de código gerado, comandos de banco sem `NODE_ENV=test`.
 - Exija no brief uma autochecagem antes de retornar: rodar os gates da fatia, conferir cada item do checklist e devolver a saída final de cada gate (comando, exit code, contagem de testes) e os itens do checklist que não conseguiu confirmar. Entrega sem essa saída volta ao subagente sem revisão.
@@ -54,7 +55,7 @@ Achado confirmado volta ao subagente escritor via `SendMessage`, com feedback es
 
 Rode no fim de cada fatia os gates da definição de pronto do `AGENTS.md` do projeto. No backend, integração e e2e rodam contra o banco de teste (`NODE_ENV=test`). Uma falha bloqueia a próxima fatia.
 
-Fatia que altera tela ou componente também passa pelo navegador: suba a aplicação (agente `executor` ou comando em background), delegue ao agente `verificador-ui` com a URL base, as rotas, os elementos alterados, o comportamento esperado e como autenticar, e confira os screenshots. Falha dele bloqueia a fatia como qualquer gate.
+Fatia que altera tela ou componente também passa pelo navegador: suba a aplicação (agente `executor` ou comando em background), delegue ao agente `verificador-ui` com a URL base, as rotas, os elementos alterados, o comportamento esperado e como autenticar, e confira os screenshots das falhas. Falha dele bloqueia a fatia como qualquer gate.
 
 Com os gates verdes, faça um commit convencional em inglês com a fatia (sem incluir arquivos de outras fatias). Se o usuário pedir PRs, abra um por fatia, com base na branch da fatia anterior, e descreva no corpo o objetivo, o critério de aceite e os gates executados.
 
