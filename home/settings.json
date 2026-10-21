@@ -142,7 +142,6 @@
   "verbose": false,
   "autoContinueAtUsageLimit": true,
   "autoUpdate": true,
-  "autoCompactThreshold": 80,
   "pluginConfigs": {
     "ponytail@ponytail": {
       "options": {
@@ -151,5 +150,6 @@
       }
     }
   },
-  "disableClaudeAiConnectors": true
+  "disableClaudeAiConnectors": true,
+  "autoCompactWindow": 200000
 }
