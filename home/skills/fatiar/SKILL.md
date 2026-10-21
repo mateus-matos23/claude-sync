@@ -41,19 +41,18 @@ Achado confirmado volta ao subagente escritor via `SendMessage`, com feedback es
 
 ### Checklist de revisão
 
+- [ ] Definição de pronto e regras do `AGENTS.md` do projeto atendidas (camadas, erros, fixtures, código gerado).
+- [ ] Reuso: nenhum componente, hook ou helper novo que duplique um bloco compartilhado do projeto (`src/common/` no backend, `docs/convencoes.md` §2 no frontend).
 - [ ] Contas, contagens e números consistentes entre docs, testes e código.
-- [ ] Camadas `http → application → domain`; domínio sem Nest/Prisma/HTTP/env; nenhum import interno de outro módulo.
 - [ ] Recurso de unidade com `unitId` vindo da rota/contexto e teste de isolamento entre unidades.
-- [ ] Fixtures de teste FK-válidas (usuários e registros reais, sem IDs aleatórios em FK como `audit.user_sub`).
-- [ ] Contrato HTTP alterado → OpenAPI regenerado e `pnpm openapi:check` verde.
-- [ ] Cache: leituras afetadas pela escrita são invalidadas.
-- [ ] Erros como classes com código estável; nada do Prisma exposto ao cliente.
+- [ ] Contrato HTTP alterado → backend com `pnpm openapi:check` verde; frontend com `pnpm generate-api` e código gerado no commit.
+- [ ] Escrita invalida as leituras afetadas (`get*QueryKey` gerado, `invalidateDashboard`).
 - [ ] Sem `any`, sem `as` para esconder tipo, sem dependência nova.
 - [ ] Testes cobrem caso feliz, limites e regressão.
 
 ## 5. Gates
 
-Rode no fim de cada fatia, contra o banco de teste (`NODE_ENV=test`): `pnpm check`, `pnpm typecheck`, `pnpm test`, os testes de integração/e2e relevantes e `git diff --check`. Uma falha bloqueia a próxima fatia.
+Rode no fim de cada fatia os gates da definição de pronto do `AGENTS.md` do projeto. No backend, integração e e2e rodam contra o banco de teste (`NODE_ENV=test`). Uma falha bloqueia a próxima fatia.
 
 Fatia que altera tela ou componente também passa pelo navegador: suba a aplicação (agente `executor` ou comando em background), delegue ao agente `verificador-ui` com a URL base, as rotas, os elementos alterados, o comportamento esperado e como autenticar, e confira os screenshots. Falha dele bloqueia a fatia como qualquer gate.
 
