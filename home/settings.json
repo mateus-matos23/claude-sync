@@ -47,7 +47,7 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "opus",
+  "model": "sonnet",
   "hooks": {
     "PreToolUse": [
       {
@@ -150,5 +150,6 @@
         "sendNames": true
       }
     }
-  }
+  },
+  "disableClaudeAiConnectors": true
 }

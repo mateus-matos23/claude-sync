@@ -73,3 +73,7 @@ Uma skill por gatilho; não rode duas para a mesma análise. Skill do projeto (`
 - Execute os gates relevantes ao tipo de alteração, amplie somente quando houver risco, falha ou contrato afetado e rode `git diff --check`.
 - Não declare conclusão com falha concreta sem classificação.
 - Pronto = lint, typecheck e testes verdes, mais `git diff --check`. Mudança de UI é verificada no navegador com o agente `verificador-ui`; se não for possível, declare o motivo.
+
+## Compact instructions
+
+Ao compactar, preserve: decisões tomadas e o porquê, fatias concluídas e pendentes, arquivos alterados, saídas de gates com falha e suposições registradas. Descarte leituras de arquivo e saídas de comando já resolvidas.
