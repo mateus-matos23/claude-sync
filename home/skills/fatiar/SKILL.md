@@ -56,7 +56,7 @@ Rode no fim de cada fatia os gates da definição de pronto do `AGENTS.md` do pr
 
 Fatia que altera tela ou componente também passa pelo navegador: suba a aplicação (agente `executor` ou comando em background), delegue ao agente `verificador-ui` com a URL base, as rotas, os elementos alterados, o comportamento esperado e como autenticar, e confira os screenshots. Falha dele bloqueia a fatia como qualquer gate.
 
-Com os gates verdes, faça um commit convencional em inglês com a fatia (sem incluir arquivos de outras fatias).
+Com os gates verdes, faça um commit convencional em inglês com a fatia (sem incluir arquivos de outras fatias). Se o usuário pedir PRs, abra um por fatia, com base na branch da fatia anterior, e descreva no corpo o objetivo, o critério de aceite e os gates executados.
 
 ## 6. Relatório final
 

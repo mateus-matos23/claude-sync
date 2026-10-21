@@ -61,7 +61,7 @@ Uma skill por gatilho; não rode duas para a mesma análise. Skill do projeto (`
 ## Git e comunicação
 
 - Preserve alterações locais e nunca reescreva histórico compartilhado sem autorização explícita.
-- Commite cada fatia com gates verdes sem pedir confirmação (conventional commit em inglês). Push e PR só com pedido explícito.
+- Commite cada fatia com gates verdes sem pedir confirmação (conventional commit em inglês). Push e PR só com pedido explícito; quando pedido, um PR por fatia, isolado e reproduzível, empilhado sobre a branch da fatia anterior enquanto ela não for mergeada.
 - Seja direto e objetivo. Evite resumo longo para tarefas simples.
 - Commits, PRs e docs são revisados por um time pequeno: escreva para um colega que não acompanhou a sessão.
 - Reporte mudanças, validações, limitações e suposições relevantes.
