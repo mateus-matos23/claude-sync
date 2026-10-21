@@ -29,7 +29,7 @@
 
 ## Roteamento de skills
 
-Uma skill por gatilho; não rode duas para a mesma análise.
+Uma skill por gatilho; não rode duas para a mesma análise. Skill do projeto (`.claude/skills/`) prevalece sobre plugin equivalente.
 
 - Escrever ou refatorar TS (Nest/React): `code-style`. Feature com 3+ fatias: `fatiar`.
 - Escolher entre abordagens ou registrar ADR: `engineering:architecture`. Novo módulo, serviço ou modelo de dados: `engineering:system-design`.
@@ -38,7 +38,7 @@ Uma skill por gatilho; não rode duas para a mesma análise.
 - Docs (README, runbook): agente `documentador`.
 - Revisão de corretude de diff/PR: agente `revisor` (roda `engineering:code-review`). Excesso de código: `ponytail-review` para relatório, `/simplify` para aplicar.
 - Saúde do repo e o que apagar: `ponytail-audit`; priorizar backlog de dívida: `engineering:tech-debt`; listar `shortcut:` pendentes: `ponytail-debt`.
-- UI nova ou redesenho: `frontend-design`; implementação com shadcn/Tailwind e acessibilidade: `ui-ux-pro-max:ui-styling`.
+- UI nova ou redesenho: `frontend-design`; componentes shadcn/Tailwind: skill `shadcn` do projeto; revisão de UX e acessibilidade: `ui-ux-pro-max`.
 - Mudança sensível de segurança antes do merge: `security-review`.
 
 ## Dependências
