@@ -7,7 +7,6 @@
     "DISABLE_ERROR_REPORTING": "1",
     "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1",
     "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "16000",
-    "MAX_THINKING_TOKENS": "8000",
     "MAX_MCP_OUTPUT_TOKENS": "25000",
     "TASK_MAX_OUTPUT_LENGTH": "20000",
     "SECURITY_REVIEW_MODEL": "claude-sonnet-5-5",
@@ -101,7 +100,8 @@
     "engineering@knowledge-work-plugins": true,
     "security-guidance@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true,
-    "ui-ux-pro-max@ui-ux-pro-max-skill": true
+    "ui-ux-pro-max@ui-ux-pro-max-skill": true,
+    "ponytail@ponytail": true
   },
   "extraKnownMarketplaces": {
     "knowledge-work-plugins": {
@@ -113,7 +113,15 @@
     "ui-ux-pro-max-skill": {
       "source": {
         "source": "github",
-        "repo": "nextlevelbuilder/ui-ux-pro-max-skill"
+        "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+        "ref": "v2.15.0"
+      }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail",
+        "ref": "v5.3.2"
       }
     }
   },
@@ -134,5 +142,13 @@
   "verbose": false,
   "autoContinueAtUsageLimit": true,
   "autoUpdate": true,
-  "autoCompactThreshold": 80
+  "autoCompactThreshold": 80,
+  "pluginConfigs": {
+    "ponytail@ponytail": {
+      "options": {
+        "ledger": true,
+        "sendNames": true
+      }
+    }
+  }
 }
