@@ -25,7 +25,21 @@
 - Não rode subagente sem tarefa delimitada; por padrão, use no máximo um subagente somente leitura por vez e nunca paralelize escritores na mesma área.
 - Subagentes rodam em `haiku`, ou `sonnet` para revisão e fatias complexas; nunca Opus nem fork. Um hook nega o resto.
 - O agente principal revisa cada entrega de subagente (contas, contagens, camadas, contratos) antes de liberar a próxima fatia.
-- Use skills especializadas explicitamente apenas quando o roteamento indicar uma necessidade concreta.
+- Use skills especializadas explicitamente apenas quando o roteamento abaixo indicar uma necessidade concreta.
+
+## Roteamento de skills
+
+Uma skill por gatilho; não rode duas para a mesma análise.
+
+- Escrever ou refatorar TS (Nest/React): `code-style`. Feature com 3+ fatias: `fatiar`.
+- Escolher entre abordagens ou registrar ADR: `engineering:architecture`. Novo módulo, serviço ou modelo de dados: `engineering:system-design`.
+- Planejar testes de mudança de risco alto: `engineering:testing-strategy`. Bug sem causa óbvia: `engineering:debug`.
+- Release com migration ou feature flag: `engineering:deploy-checklist`. Incidente em produção: `engineering:incident-response`.
+- Docs (README, runbook): agente `documentador`.
+- Revisão de corretude de diff/PR: agente `revisor` (roda `engineering:code-review`). Excesso de código: `ponytail-review` para relatório, `/simplify` para aplicar.
+- Saúde do repo e o que apagar: `ponytail-audit`; priorizar backlog de dívida: `engineering:tech-debt`; listar `shortcut:` pendentes: `ponytail-debt`.
+- UI nova ou redesenho: `frontend-design`; implementação com shadcn/Tailwind e acessibilidade: `ui-ux-pro-max:ui-styling`.
+- Mudança sensível de segurança antes do merge: `security-review`.
 
 ## Dependências
 
@@ -44,12 +58,13 @@
 ## Git e comunicação
 
 - Preserve alterações locais e nunca reescreva histórico compartilhado sem autorização explícita.
+- Commite cada fatia com gates verdes sem pedir confirmação (conventional commit em inglês). Push e PR só com pedido explícito.
 - Seja direto e objetivo. Evite resumo longo para tarefas simples.
 - Reporte mudanças, validações, limitações e suposições relevantes.
 
 ## Validação
 
-- Toda mudança de lógica precisa de teste correspondente e casos-limite relevantes.
+- Toda mudança de lógica precisa de teste correspondente e casos-limite relevantes. Esta regra prevalece sobre o ponytail.
 - Valide cada fatia antes de iniciar a próxima; uma falha concreta ou contrato inconsistente bloqueia o avanço até ser resolvido ou classificado.
 - Execute os gates relevantes ao tipo de alteração, amplie somente quando houver risco, falha ou contrato afetado e rode `git diff --check`.
 - Não declare conclusão com falha concreta sem classificação.
