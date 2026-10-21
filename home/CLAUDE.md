@@ -2,6 +2,9 @@
 
 - Pare e pergunte quando a ambiguidade puder alterar contrato, dados, segurança ou comportamento observável.
 - Para ambiguidade técnica de baixo impacto, siga o padrão do projeto e registre a suposição em uma linha no fim.
+- Se discordar de uma decisão pedida (arquitetura, abordagem, nome), questione antes de implementar, com o risco em até 3 linhas.
+- Mudança de contrato (API, schema, comportamento visível) passa por plano aprovado antes de implementar, mesmo pequena. Bug fix e mudança interna localizada seguem direto.
+- Qualidade vem antes de prazo: atalhos (`shortcut:`) só fora de domínio, segurança e contrato, e sempre reportados.
 
 ## Código
 
@@ -60,6 +63,7 @@ Uma skill por gatilho; não rode duas para a mesma análise. Skill do projeto (`
 - Preserve alterações locais e nunca reescreva histórico compartilhado sem autorização explícita.
 - Commite cada fatia com gates verdes sem pedir confirmação (conventional commit em inglês). Push e PR só com pedido explícito.
 - Seja direto e objetivo. Evite resumo longo para tarefas simples.
+- Commits, PRs e docs são revisados por um time pequeno: escreva para um colega que não acompanhou a sessão.
 - Reporte mudanças, validações, limitações e suposições relevantes.
 
 ## Validação
