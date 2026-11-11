@@ -20,7 +20,15 @@ fi
 
 source_of_model="parâmetro model"
 if [[ -z $model && -n $subagent_type ]]; then
-  for agent_file in "$cwd/.claude/agents/$subagent_type.md" "$HOME/.claude/agents/$subagent_type.md"; do
+  candidates=("$cwd/.claude/agents/$subagent_type.md" "$HOME/.claude/agents/$subagent_type.md")
+  if [[ $subagent_type == *:* ]]; then
+    # Agente de plugin (plugin:agente) fica no cache, numa pasta por marketplace e versão; a mais recente vale.
+    shopt -s nullglob
+    plugin_files=("$HOME"/.claude/plugins/cache/*/"${subagent_type%%:*}"/*/agents/"${subagent_type#*:}".md)
+    shopt -u nullglob
+    ((${#plugin_files[@]})) && candidates=("$(ls -t "${plugin_files[@]}" | head -n 1)")
+  fi
+  for agent_file in "${candidates[@]}"; do
     if [[ -f $agent_file ]]; then
       model=$(frontmatter_model "$agent_file")
       source_of_model="frontmatter de $agent_file"

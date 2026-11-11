@@ -81,7 +81,17 @@ printf -- '---\nname: caro\nmodel: opus\n---\ncorpo model: haiku\n' >"$fake_home
 printf -- '---\nname: barato\nmodel: haiku\n---\n' >"$fake_home/.claude/agents/barato.md"
 printf -- '---\nname: barato\nmodel: inherit\n---\n' >"$fake_home/project/.claude/agents/herda.md"
 printf -- '---\nname: sem-modelo\n---\nmodel: opus\n' >"$fake_home/.claude/agents/sem-modelo.md"
+plugin_cache="$fake_home/.claude/plugins/cache/mercado"
+mkdir -p "$plugin_cache/simplificador/1.0/agents" "$plugin_cache/simplificador/2.0/agents" "$plugin_cache/leve/1.0/agents"
+printf -- '---\nname: limpa\nmodel: haiku\n---\n' >"$plugin_cache/simplificador/1.0/agents/limpa.md"
+printf -- '---\nname: limpa\nmodel: opus\n---\n' >"$plugin_cache/simplificador/2.0/agents/limpa.md"
+touch -d '1 hour ago' "$plugin_cache/simplificador/1.0/agents/limpa.md"
+printf -- '---\nname: leve\nmodel: sonnet\n---\n' >"$plugin_cache/leve/1.0/agents/leve.md"
 export HOME=$fake_home
+expect_agent deny '{"subagent_type": "simplificador:limpa"}'
+expect_agent allow '{"subagent_type": "leve:leve"}'
+expect_agent allow '{"model": "haiku", "subagent_type": "simplificador:limpa"}'
+expect_agent allow '{"subagent_type": "ausente:agente"}'
 expect_agent allow '{"subagent_type": "Explore"}'
 expect_agent allow '{"model": "haiku"}'
 expect_agent allow '{"model": "sonnet", "subagent_type": "caro"}'
