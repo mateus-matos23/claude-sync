@@ -15,13 +15,13 @@ Fluxo para features maiores: o agente principal planeja, delega uma fatia por ve
 - Entreviste o usuário em rodadas (AskUserQuestion) antes de planejar, cobrindo toda ambiguidade que mude contrato, dados, segurança ou comportamento observável:
   - Cada rodada traz só as decisões cujas dependências já estão resolvidas; cada pergunta vem com a sua resposta recomendada.
   - Fatos (o que o código, docs ou skills dizem) você busca sozinho; só decisões vão ao usuário.
-  - Repita até não restar decisão aberta.
+  - No máximo 2 rodadas de até 4 perguntas. Decisão de baixo impacto não vira pergunta: adote a recomendação e registre-a como suposição no plano.
 
 ## 2. Planejar
 
 - Divida em 3 a 7 fatias sequenciais (ex.: migration, domínio, persistência, caso de uso, HTTP/OpenAPI, docs). Cada fatia depende da anterior estar validada.
 - Para cada fatia, registre: arquivos, critério de aceite verificável, testes esperados, gates, a régua da fatia e o risco.
-- A régua da fatia tem três partes:
+- A régua da fatia tem quatro partes:
   - **Skills**: de 1 a 3 caminhos de `SKILL.md` do projeto.
   - **Regras**: de 3 a 8 regras concretas extraídas dessas skills e do `AGENTS.md` (ex.: "query key via `queryOptions` em `x.queries.ts`").
   - **Reusar**: helpers, componentes ou serviços existentes que a fatia deve usar, com caminho.
@@ -31,15 +31,16 @@ Fluxo para features maiores: o agente principal planeja, delega uma fatia por ve
   - **Alto**: domínio/regra de negócio, migration, auth/segurança, contrato HTTP/OpenAPI, isolamento por `unitId`, valores monetários.
   - **Baixo**: docs, ajuste de testes, wiring/DI, renomeação, UI sem lógica.
 - Para fatias de risco alto, planeje os testes com `engineering:testing-strategy`.
-- Apresente o plano e aguarde aprovação.
+- Apresente o plano, com as suposições, e aguarde aprovação. É a única parada planejada: aprovado o plano, execute todas as fatias até o relatório final.
+- Só pare antes disso por bloqueio: gate vermelho depois de 2 iterações, ambiguidade nova de contrato, dados ou segurança, ou achado de segurança que não dá para corrigir nem justificar.
 
 ## 3. Delegar (uma fatia por vez)
 
 - Fatia de risco baixo que toca até 3 arquivos: o agente principal implementa direto, sem subagente, porque cada subagente começa com contexto e cache frios. Revisão, gates e commit seguem iguais.
-- Um subagente escritor por vez, sempre com `model` explícito: `haiku` para risco baixo, `sonnet` para risco alto. Nunca Opus nem fork. Isso vale para as demais fatias.
+- Um subagente escritor por vez, sempre com `model: haiku` explícito, inclusive em risco alto: a régua no brief compensa o modelo menor. Se a primeira correção de um achado também falhar, a fatia vai para um novo subagente `sonnet`, com o brief e os achados. Nunca Opus nem fork. Isso vale para as demais fatias.
 - O brief contém: objetivo, arquivos, critério de aceite, comandos de gate, o que não tocar, as **Regras**, o **Reusar** e o **Não se aplica** da fatia copiados na íntegra, os caminhos das **Skills** com a ordem de lê-los antes de editar, e o **checklist abaixo** copiado na íntegra. O que não estiver no brief o subagente decide sozinho, a partir do código vizinho, e é daí que vem a divergência de contrato.
 - Proíba no brief: dependências novas, edição de código gerado, comandos de banco sem `NODE_ENV=test`.
-- Exija no brief uma autochecagem antes de retornar: rodar os gates da fatia, conferir cada item do checklist e devolver a saída final de cada gate (comando, exit code, contagem de testes) , cada regra da fatia marcada como aplicada (com arquivo) ou não aplicável (com motivo) e os itens do checklist que não conseguiu confirmar. Entrega sem essa saída volta ao subagente sem revisão.
+- Exija no brief uma autochecagem antes de retornar: rodar os gates da fatia, conferir cada item do checklist e devolver a saída final de cada gate (comando, exit code, contagem de testes), cada regra da fatia marcada como aplicada (com arquivo) ou não aplicável (com motivo) e os itens do checklist que não conseguiu confirmar. Entrega sem essa saída volta ao subagente sem revisão.
 
 ## 4. Revisar
 
@@ -50,7 +51,7 @@ Depois de cada entrega de subagente, nesta ordem. Fatia de risco baixo pula o pa
 3. **Segurança**: o plugin `security-guidance` revisa sozinho, com alertas por padrão nas edições, revisão do diff no fim do turno e revisão agêntica no commit. Todo achado dele precisa ser corrigido ou justificado antes de liberar a fatia.
 4. **Checklist**: leia o diff (`git diff`) e confira cada item abaixo.
 
-Achado confirmado volta ao subagente escritor via `SendMessage`, com feedback específico (até 2 iterações; depois corrija ou escale ao usuário). Se o `SendMessage` falhar, o agente principal aplica direto as correções pequenas e localizadas e registra isso no relatório final; correção grande vai a um novo subagente com o feedback no brief.
+Achado confirmado volta ao subagente escritor via `SendMessage`, com feedback específico. Se essa correção falhar, a fatia vai para `sonnet` (§3); se a do `sonnet` também falhar, corrija ou escale ao usuário. Se o `SendMessage` falhar, o agente principal aplica direto as correções pequenas e localizadas e registra isso no relatório final; correção grande vai a um novo subagente com o feedback no brief.
 
 ### Checklist de revisão
 

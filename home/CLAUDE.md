@@ -26,7 +26,7 @@
 ## Subagentes e contexto
 
 - Não rode subagente sem tarefa delimitada; por padrão, use no máximo um subagente somente leitura por vez e nunca paralelize escritores na mesma área.
-- Subagentes rodam em `haiku`, ou `sonnet` para revisão e fatias complexas; nunca Opus nem fork. Um hook nega o resto.
+- Subagentes rodam em `haiku`, ou `sonnet` para revisão e para refazer fatia que o `haiku` não conseguiu corrigir; nunca Opus nem fork. Um hook nega o resto.
 - O agente principal revisa cada entrega de subagente (contas, contagens, camadas, contratos) antes de liberar a próxima fatia.
 - Use skills especializadas explicitamente apenas quando o roteamento abaixo indicar uma necessidade concreta.
 
@@ -34,7 +34,7 @@
 
 Uma skill por gatilho; não rode duas para a mesma análise. Skill do projeto (`.claude/skills/`) prevalece sobre plugin equivalente; `AGENTS.md` e `docs/` do projeto prevalecem sobre skill genérica que os contradiga, inclusive em revisão de aderência.
 
-- Escrever ou refatorar TS (Nest/React): `code-style`. Feature com 3+ fatias: `fatiar`.
+- Escrever ou refatorar TS (Nest/React): `code-style`. Feature com 3+ fatias: `fatiar`; com 1 ou 2 fatias, o agente principal implementa direto, sem subagente.
 - Escolher entre abordagens ou registrar ADR: `engineering:architecture`. Novo módulo, serviço ou modelo de dados: `engineering:system-design`.
 - Planejar testes de mudança de risco alto: `engineering:testing-strategy`. Bug sem causa óbvia: `engineering:debug`.
 - Release com migration ou feature flag: `engineering:deploy-checklist`. Incidente em produção: `engineering:incident-response`.
