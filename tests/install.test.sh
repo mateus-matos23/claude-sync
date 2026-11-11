@@ -20,7 +20,7 @@ backups() { find "$1/backups" -mindepth 1 -maxdepth 1 2>/dev/null | wc -l; }
 h="$(new_home)"
 run "$h"
 if [[ "$(readlink "$h/settings.json")" == "$REPO_HOME/settings.json" &&
-      "$(readlink "$h/skills/fatiar")" == "$REPO_HOME/skills/fatiar" ]]; then
+      "$(readlink "$h/skills/slice")" == "$REPO_HOME/skills/slice" ]]; then
   pass "cria links em home vazio"
 else fail "cria links em home vazio"; fi
 [[ "$(backups "$h")" -eq 0 ]] && pass "sem backup quando nada existia" || fail "sem backup quando nada existia"

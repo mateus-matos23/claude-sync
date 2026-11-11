@@ -36,4 +36,4 @@ A sessão termina quando a fronteira fica vazia, ou quando o usuário mandar seg
 - **Suposições**: o que você decidiu sozinho.
 - **Em aberto**: o que ficou sem resposta, se o usuário encerrou antes.
 
-Não implemente nada até o usuário confirmar o resumo. O próximo passo é um plano ou o `/fatiar`, que reaproveita essas decisões.
+Não implemente nada até o usuário confirmar o resumo. O próximo passo é um plano ou o `/slice`, que reaproveita essas decisões.

@@ -1,9 +1,9 @@
 ---
-name: fatiar
-description: Entrega uma feature em fatias sequenciais implementadas por subagentes Haiku/Sonnet, com revisão do agente principal contra um checklist fixo e gates entre fatias. Use quando o usuário pedir /fatiar ou para implementar uma feature planejada em fatias com delegação.
+name: slice
+description: Entrega uma feature em fatias sequenciais implementadas por subagentes Haiku/Sonnet, com revisão do agente principal contra um checklist fixo e gates entre fatias. Use quando o usuário pedir /slice ou para implementar uma feature planejada em fatias com delegação.
 ---
 
-# Fatiar
+# Slice
 
 Fluxo para features maiores: o agente principal planeja, delega uma fatia por vez e revisa. As regras do `CLAUDE.md` global e do projeto (`AGENTS.md`) continuam valendo.
 
