@@ -132,7 +132,7 @@
       "effortLevel": "medium"
     }
   },
-  "autoCompactWindow": 200000,
+  "autoCompactWindow": 300000,
   "pluginConfigs": {
     "ponytail@ponytail": {
       "options": {
