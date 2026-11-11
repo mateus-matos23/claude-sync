@@ -19,7 +19,7 @@ Cada item de `home/` vira symlink em `~/.claude`. O que já existia vai para `~/
 
 ## Sincronizado
 
-`CLAUDE.md`, `settings.json`, `claude-security-guidance.md`, `agents/`, `hooks/`, `skills/code-style`, `skills/fatiar`, `playwright-mcp.json`. Para adicionar um item, copie-o para `home/` e inclua-o em `ITEMS` no `install.sh`.
+`CLAUDE.md`, `settings.json`, `claude-security-guidance.md`, `agents/`, `hooks/`, `skills/code-style`, `skills/fatiar`, `skills/grill-me`, `playwright-mcp.json`. Para adicionar um item, copie-o para `home/` e inclua-o em `ITEMS` no `install.sh`.
 
 ## Playwright MCP (agente `ui-verifier`)
 

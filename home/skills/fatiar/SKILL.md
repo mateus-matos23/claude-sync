@@ -12,6 +12,7 @@ Fluxo para features maiores: o agente principal planeja, delega uma fatia por ve
 - Leia somente a spec, os docs da feature e o código tocado.
 - Liste `.claude/skills/` do projeto e leia as skills relevantes à feature. Junto com o `AGENTS.md`, elas formam a régua do plano, da implementação e da revisão.
 - Muitas skills de projeto são genéricas, de terceiros. Quando uma delas contradiz o `AGENTS.md` ou os `docs/` do projeto, vale o projeto (ex.: `HttpException` no service contra erro de domínio traduzido num filtro central).
+- Se a conversa já tem o resumo de um `/grill-me`, use as decisões dele e pergunte só o que ficou em aberto.
 - Entreviste o usuário em rodadas (AskUserQuestion) antes de planejar, cobrindo toda ambiguidade que mude contrato, dados, segurança ou comportamento observável:
   - Cada rodada traz só as decisões cujas dependências já estão resolvidas; cada pergunta vem com a sua resposta recomendada.
   - Fatos (o que o código, docs ou skills dizem) você busca sozinho; só decisões vão ao usuário.

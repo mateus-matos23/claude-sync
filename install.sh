@@ -15,6 +15,7 @@ ITEMS=(
   hooks
   skills/code-style
   skills/fatiar
+  skills/grill-me
   playwright-mcp.json
 )
 
