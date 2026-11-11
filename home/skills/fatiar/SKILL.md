@@ -10,12 +10,21 @@ Fluxo para features maiores: o agente principal planeja, delega uma fatia por ve
 ## 1. Entender
 
 - Leia somente a spec, os docs da feature e o código tocado.
-- Pergunte (AskUserQuestion) toda ambiguidade que mude contrato, dados, segurança ou comportamento observável antes de planejar.
+- Liste `.claude/skills/` do projeto e leia as skills relevantes à feature; elas são a régua do plano, da implementação e da revisão.
+- Entreviste o usuário em rodadas (AskUserQuestion) antes de planejar, cobrindo toda ambiguidade que mude contrato, dados, segurança ou comportamento observável:
+  - Cada rodada traz só as decisões cujas dependências já estão resolvidas; cada pergunta vem com a sua resposta recomendada.
+  - Fatos (o que o código, docs ou skills dizem) você busca sozinho; só decisões vão ao usuário.
+  - Repita até não restar decisão aberta.
 
 ## 2. Planejar
 
 - Divida em 3 a 7 fatias sequenciais (ex.: migration, domínio, persistência, caso de uso, HTTP/OpenAPI, docs). Cada fatia depende da anterior estar validada.
-- Para cada fatia, registre: arquivos, critério de aceite verificável, testes esperados, gates e risco:
+- Para cada fatia, registre: arquivos, critério de aceite verificável, testes esperados, gates, a régua da fatia e o risco.
+- A régua da fatia tem três partes:
+  - **Skills**: de 1 a 3 caminhos de `SKILL.md` do projeto.
+  - **Regras**: de 3 a 8 regras concretas extraídas dessas skills e do `AGENTS.md` (ex.: "query key via `queryOptions` em `x.queries.ts`").
+  - **Reusar**: helpers, componentes ou serviços existentes que a fatia deve usar, com caminho.
+- Classifique o risco assim:
   - **Alto**: domínio/regra de negócio, migration, auth/segurança, contrato HTTP/OpenAPI, isolamento por `unitId`, valores monetários.
   - **Baixo**: docs, ajuste de testes, wiring/DI, renomeação, UI sem lógica.
 - Para fatias de risco alto, planeje os testes com `engineering:testing-strategy`.
@@ -25,15 +34,15 @@ Fluxo para features maiores: o agente principal planeja, delega uma fatia por ve
 
 - Fatia de risco baixo que toca até 3 arquivos: o agente principal implementa direto, sem subagente, porque cada subagente começa com contexto e cache frios. Revisão, gates e commit seguem iguais.
 - Um subagente escritor por vez, sempre com `model` explícito: `haiku` para risco baixo, `sonnet` para risco alto. Nunca Opus nem fork. Isso vale para as demais fatias.
-- O brief contém: objetivo, arquivos, critério de aceite, comandos de gate, o que não tocar e o **checklist abaixo** copiado na íntegra.
+- O brief contém: objetivo, arquivos, critério de aceite, comandos de gate, o que não tocar, as **Regras** e o **Reusar** da fatia copiados na íntegra, os caminhos das **Skills** com a ordem de lê-los antes de editar, e o **checklist abaixo** copiado na íntegra. O subagente não carrega skills sozinho; o que não estiver no brief ele não segue.
 - Proíba no brief: dependências novas, edição de código gerado, comandos de banco sem `NODE_ENV=test`.
-- Exija no brief uma autochecagem antes de retornar: rodar os gates da fatia, conferir cada item do checklist e devolver a saída final de cada gate (comando, exit code, contagem de testes) e os itens do checklist que não conseguiu confirmar. Entrega sem essa saída volta ao subagente sem revisão.
+- Exija no brief uma autochecagem antes de retornar: rodar os gates da fatia, conferir cada item do checklist e devolver a saída final de cada gate (comando, exit code, contagem de testes) , cada regra da fatia marcada como aplicada (com arquivo) ou não aplicável (com motivo) e os itens do checklist que não conseguiu confirmar. Entrega sem essa saída volta ao subagente sem revisão.
 
 ## 4. Revisar
 
 Depois de cada entrega de subagente, nesta ordem. Fatia de risco baixo pula o passo 1; o passo 2 roda uma vez sobre o diff final da feature, não por fatia.
 
-1. **Revisão aprofundada** (só risco alto): delegue ao agente `revisor` (Sonnet, somente leitura), informando o diff da fatia, o contrato esperado e o checklist abaixo. Ele roda `engineering:code-review` e verifica os achados.
+1. **Revisão aprofundada** (só risco alto): delegue ao agente `revisor` (Sonnet, somente leitura), informando o diff da fatia, o contrato esperado, a régua da fatia (Skills, Regras e Reusar) e o checklist abaixo. Ele roda `engineering:code-review` e verifica os achados.
 2. **Simplificação** (uma vez, no fim): o agente principal roda `/simplify` sobre o diff da feature. Ele edita arquivos, por isso fica fora do revisor. Descarte sugestões que contrariem a `code-style` ou o escopo.
 3. **Segurança**: o plugin `security-guidance` revisa sozinho, com alertas por padrão nas edições, revisão do diff no fim do turno e revisão agêntica no commit. Todo achado dele precisa ser corrigido ou justificado antes de liberar a fatia.
 4. **Checklist**: leia o diff (`git diff`) e confira cada item abaixo.
@@ -43,6 +52,7 @@ Achado confirmado volta ao subagente escritor via `SendMessage`, com feedback es
 ### Checklist de revisão
 
 - [ ] Definição de pronto e regras do `AGENTS.md` do projeto atendidas (camadas, erros, fixtures, código gerado).
+- [ ] Régua da fatia atendida: cada item de Regras aplicado ou justificado como não aplicável, e cada item de Reusar usado em vez de código novo.
 - [ ] Reuso: nenhum componente, hook ou helper novo que duplique um bloco compartilhado do projeto (`src/common/` no backend, `docs/convencoes.md` §2 no frontend).
 - [ ] Contas, contagens e números consistentes entre docs, testes e código.
 - [ ] Recurso de unidade com `unitId` vindo da rota/contexto e teste de isolamento entre unidades.
