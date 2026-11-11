@@ -32,7 +32,7 @@
 
 ## Roteamento de skills
 
-Uma skill por gatilho; não rode duas para a mesma análise. Skill do projeto (`.claude/skills/`) prevalece sobre plugin equivalente.
+Uma skill por gatilho; não rode duas para a mesma análise. Skill do projeto (`.claude/skills/`) prevalece sobre plugin equivalente; `AGENTS.md` e `docs/` do projeto prevalecem sobre skill genérica que os contradiga, inclusive em revisão de aderência.
 
 - Escrever ou refatorar TS (Nest/React): `code-style`. Feature com 3+ fatias: `fatiar`.
 - Escolher entre abordagens ou registrar ADR: `engineering:architecture`. Novo módulo, serviço ou modelo de dados: `engineering:system-design`.
