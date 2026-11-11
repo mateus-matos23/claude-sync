@@ -101,7 +101,6 @@
     "engineering@knowledge-work-plugins": true,
     "security-guidance@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true,
-    "ui-ux-pro-max@ui-ux-pro-max-skill": true,
     "ponytail@ponytail": true
   },
   "extraKnownMarketplaces": {
@@ -109,13 +108,6 @@
       "source": {
         "source": "github",
         "repo": "anthropics/knowledge-work-plugins"
-      }
-    },
-    "ui-ux-pro-max-skill": {
-      "source": {
-        "source": "github",
-        "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
-        "ref": "v2.15.0"
       }
     },
     "ponytail": {
