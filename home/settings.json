@@ -47,7 +47,8 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "sonnet",
+  "model": "opus",
+  "disableClaudeAiConnectors": true,
   "hooks": {
     "PreToolUse": [
       {
@@ -138,10 +139,7 @@
       "effortLevel": "medium"
     }
   },
-  "theme": "dark",
-  "verbose": false,
-  "autoContinueAtUsageLimit": true,
-  "autoUpdate": true,
+  "autoCompactWindow": 200000,
   "pluginConfigs": {
     "ponytail@ponytail": {
       "options": {
@@ -150,6 +148,8 @@
       }
     }
   },
-  "disableClaudeAiConnectors": true,
-  "autoCompactWindow": 200000
+  "theme": "dark",
+  "verbose": false,
+  "autoContinueAtUsageLimit": true,
+  "autoUpdate": true
 }
