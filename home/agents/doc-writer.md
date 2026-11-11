@@ -1,5 +1,5 @@
 ---
-name: documentador
+name: doc-writer
 description: Escreve e atualiza documentação (README, docs do repositório, docstrings) com base no código atual e na documentação oficial. Ao delegar, informe quais arquivos ou comportamentos documentar, o público-alvo e o arquivo de destino. Não altera lógica de código.
 tools: Read, Grep, Glob, Edit, Write, WebFetch
 model: haiku

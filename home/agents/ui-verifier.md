@@ -1,5 +1,5 @@
 ---
-name: verificador-ui
+name: ui-verifier
 description: Verifica mudanças de UI no navegador (Playwright MCP, Chromium headless) e reporta passou/falhou, com screenshots das falhas. Ao delegar, informe a URL base com a aplicação já rodando, as rotas e os elementos alterados, o comportamento esperado e como autenticar. Não edita arquivos nem sobe servidores.
 tools: Read, Grep, Glob, Bash, mcp__playwright__browser_navigate, mcp__playwright__browser_navigate_back, mcp__playwright__browser_snapshot, mcp__playwright__browser_take_screenshot, mcp__playwright__browser_resize, mcp__playwright__browser_click, mcp__playwright__browser_hover, mcp__playwright__browser_type, mcp__playwright__browser_fill_form, mcp__playwright__browser_select_option, mcp__playwright__browser_press_key, mcp__playwright__browser_wait_for, mcp__playwright__browser_handle_dialog, mcp__playwright__browser_console_messages, mcp__playwright__browser_network_requests, mcp__playwright__browser_evaluate, mcp__playwright__browser_close
 model: sonnet

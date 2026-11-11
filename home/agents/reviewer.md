@@ -1,5 +1,5 @@
 ---
-name: revisor
+name: reviewer
 description: Revisa código de forma somente leitura, em busca de bugs de corretude, contratos, segurança, tratamento de erros e concorrência. Ao delegar, informe o alvo exato (diff, arquivos ou PR), o contrato esperado da mudança e o que já foi validado. Não use para corrigir código.
 tools: Read, Grep, Glob, Bash, LSP, Skill
 model: sonnet

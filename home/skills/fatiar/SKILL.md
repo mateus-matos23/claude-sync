@@ -46,8 +46,8 @@ Fluxo para features maiores: o agente principal planeja, delega uma fatia por ve
 
 Depois de cada entrega de subagente, nesta ordem. Fatia de risco baixo pula o passo 1; o passo 2 roda uma vez sobre o diff final da feature, não por fatia.
 
-1. **Revisão aprofundada** (só risco alto): delegue ao agente `revisor` (Sonnet, somente leitura), informando o diff da fatia, o contrato esperado, a régua da fatia (Skills, Regras, Reusar e Não se aplica) e o checklist abaixo. Ele roda `engineering:code-review` e verifica os achados.
-2. **Simplificação** (uma vez, no fim): o agente principal roda `/simplify` sobre o diff da feature. Ele edita arquivos, por isso fica fora do revisor. Descarte sugestões que contrariem a `code-style` ou o escopo.
+1. **Revisão aprofundada** (só risco alto): delegue ao agente `reviewer` (Sonnet, somente leitura), informando o diff da fatia, o contrato esperado, a régua da fatia (Skills, Regras, Reusar e Não se aplica) e o checklist abaixo. Ele roda `engineering:code-review` e verifica os achados.
+2. **Simplificação** (uma vez, no fim): o agente principal roda `/simplify` sobre o diff da feature. Ele edita arquivos, por isso fica fora do `reviewer`. Descarte sugestões que contrariem a `code-style` ou o escopo.
 3. **Segurança**: o plugin `security-guidance` revisa sozinho, com alertas por padrão nas edições, revisão do diff no fim do turno e revisão agêntica no commit. Todo achado dele precisa ser corrigido ou justificado antes de liberar a fatia.
 4. **Checklist**: leia o diff (`git diff`) e confira cada item abaixo.
 
@@ -69,7 +69,7 @@ Achado confirmado volta ao subagente escritor via `SendMessage`, com feedback es
 
 Rode no fim de cada fatia os gates da definição de pronto do `AGENTS.md` do projeto. No backend, integração e e2e rodam contra o banco de teste (`NODE_ENV=test`). Uma falha bloqueia a próxima fatia.
 
-Fatia que altera tela ou componente também passa pelo navegador: suba a aplicação (agente `executor` ou comando em background), delegue ao agente `verificador-ui` com a URL base, as rotas, os elementos alterados, o comportamento esperado e como autenticar, e confira os screenshots das falhas. Falha dele bloqueia a fatia como qualquer gate.
+Fatia que altera tela ou componente também passa pelo navegador: suba a aplicação (agente `runner` ou comando em background), delegue ao agente `ui-verifier` com a URL base, as rotas, os elementos alterados, o comportamento esperado e como autenticar, e confira os screenshots das falhas. Falha dele bloqueia a fatia como qualquer gate.
 
 Com os gates verdes, faça um commit convencional em inglês com a fatia (sem incluir arquivos de outras fatias). Se o usuário pedir PRs, abra um por fatia, com base na branch da fatia anterior, e descreva no corpo o objetivo, o critério de aceite e os gates executados.
 

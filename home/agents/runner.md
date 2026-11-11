@@ -1,5 +1,5 @@
 ---
-name: executor
+name: runner
 description: Executa comandos de validação (testes, lint, typecheck, build) e sobe ou verifica a aplicação, reportando os resultados fielmente. Ao delegar, informe os comandos ou gates a rodar, o diretório e o critério de sucesso. Não edita arquivos.
 tools: Read, Grep, Glob, Bash
 model: haiku

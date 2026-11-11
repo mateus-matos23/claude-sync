@@ -1,5 +1,5 @@
 ---
-name: testador
+name: tester
 description: Escreve e ajusta testes para mudanças de lógica, incluindo casos-limite, e os executa. Ao delegar, informe a mudança ou o comportamento a cobrir, os arquivos envolvidos e o comando de teste do projeto. Só edita arquivos de teste; não corrige código de produção.
 tools: Read, Grep, Glob, Edit, Write, Bash, LSP
 model: sonnet

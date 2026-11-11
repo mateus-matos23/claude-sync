@@ -38,8 +38,8 @@ Uma skill por gatilho; não rode duas para a mesma análise. Skill do projeto (`
 - Escolher entre abordagens ou registrar ADR: `engineering:architecture`. Novo módulo, serviço ou modelo de dados: `engineering:system-design`.
 - Planejar testes de mudança de risco alto: `engineering:testing-strategy`. Bug sem causa óbvia: `engineering:debug`.
 - Release com migration ou feature flag: `engineering:deploy-checklist`. Incidente em produção: `engineering:incident-response`.
-- Docs (README, runbook): agente `documentador`.
-- Revisão de corretude de diff/PR: agente `revisor` (roda `engineering:code-review`). Excesso de código: `ponytail-review` para relatório, `/simplify` para aplicar.
+- Docs (README, runbook): agente `doc-writer`.
+- Revisão de corretude de diff/PR: agente `reviewer` (roda `engineering:code-review`). Excesso de código: `ponytail-review` para relatório, `/simplify` para aplicar.
 - Saúde do repo e o que apagar: `ponytail-audit`; priorizar backlog de dívida: `engineering:tech-debt`; listar `shortcut:` pendentes: `ponytail-debt`.
 - UI nova ou redesenho: `frontend-design`; componentes shadcn/Tailwind: skill `shadcn` do projeto; revisão de UX e acessibilidade: skill `ui-ux-pro-max` do projeto, quando existir.
 - Mudança sensível de segurança antes do merge: `security-review`.
@@ -72,7 +72,7 @@ Uma skill por gatilho; não rode duas para a mesma análise. Skill do projeto (`
 - Valide cada fatia antes de iniciar a próxima; uma falha concreta ou contrato inconsistente bloqueia o avanço até ser resolvido ou classificado.
 - Execute os gates relevantes ao tipo de alteração, amplie somente quando houver risco, falha ou contrato afetado e rode `git diff --check`.
 - Não declare conclusão com falha concreta sem classificação.
-- Pronto = lint, typecheck e testes verdes, mais `git diff --check`. Mudança de UI é verificada no navegador com o agente `verificador-ui`; se não for possível, declare o motivo.
+- Pronto = lint, typecheck e testes verdes, mais `git diff --check`. Mudança de UI é verificada no navegador com o agente `ui-verifier`; se não for possível, declare o motivo.
 
 ## Compact instructions
 
